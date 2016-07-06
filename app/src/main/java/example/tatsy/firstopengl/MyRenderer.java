@@ -24,6 +24,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MyRenderer implements Renderer {
+    static final String TAG = "MyRenderer: ";
 
     private Resources res;
 
@@ -39,6 +40,8 @@ public class MyRenderer implements Renderer {
 
     private int width = 1;
     private int height = 1;
+
+    private float rotAngle = 0.0f;
 
     public MyRenderer(Resources res) {
         super();
@@ -104,6 +107,7 @@ public class MyRenderer implements Renderer {
         Matrix.perspectiveM(pMat, 0, 30.0f, (float)width / (float)height, 0.1f, 100.0f);
         Matrix.setLookAtM(vMat, 0, 0.6f, 0.8f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
         Matrix.setIdentityM(mMat, 0);
+        Matrix.rotateM(mMat, 0, rotAngle, 0.0f, 1.0f, 0.0f);
 
         float[] mvpMat = new float[16];
         float[] mvMat = new float[16];
@@ -253,5 +257,9 @@ public class MyRenderer implements Renderer {
             indices.put(tempIds.get(i));
         }
         indices.position(0);
+    }
+
+    public void setAngle(float angle) {
+        this.rotAngle = angle;
     }
 }
